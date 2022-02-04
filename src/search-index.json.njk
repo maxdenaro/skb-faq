@@ -1,0 +1,15 @@
+---
+permalink: '/search-feed.json'
+---
+{
+  "posts": [
+    {% for item in collections.all %}
+      {% if item.fileSlug !== "" and item.fileSlug !== " " and item.fileSlug.length === 1 %}
+        {
+        "title": "{{ item.data.title  }}",
+        "url": "{{ item.url }}"
+      }{% if not loop.last %},{% endif %}
+      {% endif %}
+    {% endfor %}
+  ]
+}

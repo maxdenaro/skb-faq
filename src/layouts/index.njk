@@ -1,0 +1,29 @@
+{% include 'header.njk' %}
+
+<main class="main">
+  <section class="content">
+    <div class="container">
+      <h1 class="title content__title">{{ metadata.title }}</h1>
+      <ul class="list-reset content__list">
+        {% for item in collections.faq %}
+          <li class="content__item">
+            {% if collections[item.data.tags_alias].length %}
+              <a href="{{ item.url }}" class="content__link" style="--bg: {{ item.data.bg }}; --color: {{ item.data.color }}">
+                <h2 class="content__subtitle">{{ item.data.title }}</h2>
+                <span class="content__count">{{ collections[item.data.tags_alias].length }}</span>
+              </a>
+            {% else %}
+              <a class="content__link content__link--disabled" style="--bg: {{ item.data.bg }}; --color: {{ item.data.color }}">
+                <h2 class="content__subtitle">{{ item.data.title }}</h2>
+                <span class="content__count">Вопросов пока нет</span>
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+{% include 'footer.njk' %}

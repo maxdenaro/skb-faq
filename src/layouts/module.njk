@@ -1,0 +1,64 @@
+{% include 'header.njk' %}
+
+<main class="main">
+  <section class="module">
+    <div class="container">
+      <a href="/" class="module__back">Назад к модулям</a>
+      <div class="prev-next-links">
+        {%- set previousPost = collections.faq | getPreviousCollectionItem(page) %}
+        {%- if previousPost %}
+          {% if previousPost.data.contents !== 'none' %}
+            <a href="{{ previousPost.url | url }}" class="prev-next-links__item prev-next-links__item--prev">
+              Предыдущий модуль
+            </a>
+          {% endif %}
+        {% endif %}
+        {%- set nextPost = collections.faq | getNextCollectionItem(page) %}
+        {%- if nextPost %}
+          {% if nextPost.data.contents !== 'none' %}
+            <a href="{{ nextPost.url | url }}" class="prev-next-links__item prev-next-links__item--next">
+              Следующий модуль
+            </a>
+          {% endif %}
+
+        {% endif %}
+      </div>
+      <h1 class="title module__title">{{ title }}</h1>
+      <div class="accordion">
+        {% if collections[tags_alias] %}
+          {% for item in collections[tags_alias] %}
+            <div class="ac">
+              <h2 class="ac-sheader">
+                <button class="ac-trigger">{{ item.data.title }}</button>
+              </h2>
+              <div class="ac-panel">
+                <div class="accordion-content">
+
+                  {{ item._templateContent | safe }}
+
+                  {% if item.data.links  %}
+                    <div class="additional">
+                      <h2 class="additional__title">Дополнительные ссылки</h2>
+                      <ol class="additional__list">
+                        {% for link in item.data.links | reverse %}
+                          <li class="additional__item">
+                            <a href="{{ link.link }}" target="_blank" class="additional__link">
+                              {{ link.text }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ol>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+</main>
+
+{% include 'footer.njk' %}
