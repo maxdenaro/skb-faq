@@ -4,11 +4,20 @@ permalink: '/search-feed.json'
 {
   "posts": [
     {% for item in collections.all %}
+    {{ collections.all | length | consoleDump}}
       {% if item.fileSlug !== "" and item.fileSlug !== " " and item.fileSlug.length === 1 %}
         {
-        "title": "{{ item.data.title  }}",
-        "url": "{{ item.url }}"
-      }{% if not loop.last %},{% endif %}
+          "title": "{{ item.data.title }}",
+          "url": "{{ item.url }}"
+        }
+
+        {# {{ loop.index | consoleDump }}
+        {{ loop.length | consoleDump }} #}
+        {# {{ loop.revindex | consoleDump }} #}
+        {{ loop.revindex0 | consoleDump }}
+        {# {{ item | length | consoleDump }} #}
+
+        {% if loop.revindex0 !== 3 %},{% endif %}
       {% endif %}
     {% endfor %}
   ]
